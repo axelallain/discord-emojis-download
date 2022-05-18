@@ -26,6 +26,10 @@ async def on_message(message):
                     shutil.copyfileobj(r.raw, f)
                     shutil.move(f"img{str(emoji.id)}.png", f"stickers/img{str(emoji.id)}.png")
         shutil.make_archive('stickers', 'zip', 'stickers')
+
+        for f in os.listdir('stickers'):
+            os.remove(os.path.join('stickers', f))
+
         await message.channel.send(file=discord.File("stickers.zip"))
 
 client.run(os.getenv("TOKEN"))
