@@ -24,7 +24,7 @@ async def on_message(message):
                 with open(f"img{str(emoji.id)}.png", 'wb') as f:
                     r.raw.decode_content = True
                     shutil.copyfileobj(r.raw, f)
-                    if emoji.animated == true:
+                    if emoji.animated == True:
                         shutil.move(f"img{str(emoji.id)}.gif", f"stickers/img{str(emoji.id)}.gif")
                     else: 
                         shutil.move(f"img{str(emoji.id)}.png", f"stickers/img{str(emoji.id)}.png")
