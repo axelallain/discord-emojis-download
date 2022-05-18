@@ -21,13 +21,17 @@ async def on_message(message):
             url = "https://cdn.discordapp.com/emojis/" + str(emoji.id)
             r = requests.get(url, stream=True)
             if r.status_code == 200:
-                with open(f"img{str(emoji.id)}.png", 'wb') as f:
-                    r.raw.decode_content = True
-                    shutil.copyfileobj(r.raw, f)
-                    if emoji.animated == True:
+                if emoji.animated == True:
+                    with open(f"img{str(emoji.id)}.gif", 'wb') as f:
+                        r.raw.decode_content = True
+                        shutil.copyfileobj(r.raw, f)
                         shutil.move(f"img{str(emoji.id)}.gif", f"stickers/img{str(emoji.id)}.gif")
-                    else: 
+                else:
+                    with open(f"img{str(emoji.id)}.png", 'wb') as f:
+                        r.raw.decode_content = True
+                        shutil.copyfileobj(r.raw, f)
                         shutil.move(f"img{str(emoji.id)}.png", f"stickers/img{str(emoji.id)}.png")
+
         shutil.make_archive('stickers', 'zip', 'stickers')
 
         for f in os.listdir('stickers'):
